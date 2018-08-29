@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>vue的介绍</title>
     <script src="static/vue.js"></script>
 </head>
 <body>
@@ -24,6 +24,21 @@
         <p>{{message}}</p>
         <button type="button" v-on:click="reverseMessage">逆转消息</button>
         <input v-model="message">
+    </div>
+
+    <div id="zujian">
+        <ol>
+            <todo-item></todo-item>
+        </ol>
+    </div>
+    <div id="zujian2">
+        <ol>
+            <todo-item2 v-for="item in groceryList"
+            v-bind:todo="item"
+            v-bind:todo2="item"
+            v-bind:key="item.id">
+            </todo-item2>
+        </ol>
     </div>
 </body>
 <script>
@@ -61,6 +76,34 @@
                 this.message=this.message.split("").reverse().join("")
             }
     }
+    })
+
+
+    /**
+     * 组件化应用构建
+     */
+    // 定义名为 todo-item 的新组件
+    Vue.component('todo-item', {
+        template: '<li>这是个待办项</li>'
+    })
+    new Vue({
+        el:"#zujian"
+    })
+
+    Vue.component('todo-item2', {
+        props:['todo','todo2'],
+        template: '<li>{{todo.text}} {{todo2.id}}</li>'
+    })
+
+    new Vue({
+        el:"#zujian2",
+        data:{
+            groceryList: [
+                { id: 0, text: '蔬菜' },
+                { id: 1, text: '奶酪' },
+                { id: 2, text: '随便其它什么人吃的东西' }
+            ]
+        }
     })
 
 

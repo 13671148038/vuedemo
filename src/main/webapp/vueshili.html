@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue实例</title>
+    <script src="static/vue.js"></script>
+</head>
+<body>
+    <div id="input">
+        <input v-model="name" v-on:keyup="keyupsd">
+    </div>
+</body>
+<script>
+    var v = new Vue({
+        el:"#input",
+        data:{
+        },
+        methods:{
+            keyupsd:function(){
+                console.log(this)
+            }
+        }
+    })
+</script>
+</html>
