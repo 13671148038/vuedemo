@@ -8,6 +8,8 @@
 <body>
     <div id="textdiv" v-bind:title="message">
         {{product}}
+        {{message}}
+        {{message2}}
         <input v-bind:value="message">
     </div>
 
@@ -73,7 +75,10 @@
         },
         methods:{
             reverseMessage:function(){
+                Vue.set(vue,"message2","sdewfsf")
                 this.message=this.message.split("").reverse().join("")
+                console.log(vue.message2)
+                console.log(vue.message)
             }
     }
     })

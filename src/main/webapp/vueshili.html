@@ -4,21 +4,52 @@
     <meta charset="UTF-8">
     <title>vue实例</title>
     <script src="static/vue.js"></script>
+    <script src="static/jquery.min.js"></script>
 </head>
 <body>
     <div id="input">
-        <input v-model="name" v-on:keyup="keyupsd">
+        <input v-model="condition.name" v-on:keyup="keyupsd">
+    </div>
+
+    <div id="ajax">
+        <ul>
+            <li v-for="iten in arr">{{iten.name}}</li>
+        </ul>
+        <button type="button" v-on:click="init">重新加载数据</button>
     </div>
 </body>
 <script>
+    init()
+    function init() {
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "data/text.json",
+            success: function (data) {
+                new Vue({
+                    el: "#ajax",
+                    data: {
+                        arr: data
+                    },
+                    methods:{
+                        init:function(){
+                            alert(89087876)
+                            init()
+                        }
+                    }
+                })
+            }
+        })
+    }
     var v = new Vue({
         el:"#input",
         data:{
+            condition:{}
         },
         methods:{
             keyupsd:function(){
-                console.log(this)
-            }
+                console.log(this.condition)
+            },
         }
     })
 </script>
