@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算于与监听</title>
+    <script src="static/vue.js"></script>
+</head>
+<body>
+
+    <div id="vue1">
+            {{message}}
+            {{reversedMessage}}
+            {{getTime}}
+            {{reversedMessage2()}}
+        <input type="button" @click="message = 'dcadscsad'" value="变换">
+    </div>
+
+    <div id="vue2">
+        <input v-model:value="value">
+    </div>
+
+</body>
+<script>
+
+    /*
+    *计算属性
+    * 你可以像绑定普通属性一样在模板中绑定计算属性。
+    * Vue 知道 vm.reversedMessage 依赖于 vm.message，
+    * 因此当 vm.message 发生改变时，所有依赖 vm.reversedMessage 的绑定也会更新。
+    *
+    *
+    * 基础例子
+    * 我们可以将同一函数定义为一个方法而不是一个计算属性
+    * 。两种方式的最终结果确实是完全相同的。
+    * 然而，不同的是计算属性是基于它们的依赖进行缓存的。
+    * 只在相关依赖发生改变时它们才会重新求值。
+    * 这就意味着只要 message 还没有发生改变，
+    * 多次访问 reversedMessage 计算属性会立即返回之前的计算结果，
+    * 而不必再次执行函数。
+    * */
+    var vue1 = new Vue({
+        el:"#vue1",
+        data:{
+            message:"123456",
+            message2:"wedewde",
+        },
+        computed:{
+            reversedMessage:function(){
+                return this.message.split("").reverse().join("")
+            },
+            getTime:function(){
+                    return new Date()
+            }
+        },
+        methods: {
+            reversedMessage2: function () {
+                return this.message2.split('').reverse().join('')
+            }
+        }
+    })
+
+    /*
+    * 侦听器
+    * */
+    var vue2 = new Vue({
+        el:"#vue2",
+        data:{
+            value:"lisi"
+        },
+        watch:{
+            value:function (newValue,oldVale) {
+                //当value值改变的时候会调用这个方法
+                console.log(newValue)
+                console.log(oldVale)
+            }
+        }
+    })
+
+</script>
+</html>

@@ -8,6 +8,7 @@
 </head>
 <body>
     <div id="input">
+        <input v-model="condition.age">
         <input v-model="condition.name" v-on:keyup="keyupsd">
     </div>
 
@@ -16,6 +17,17 @@
             <li v-for="iten in arr">{{iten.name}}</li>
         </ul>
         <button type="button" v-on:click="init">重新加载数据</button>
+    </div>
+
+
+    <div id="vue2">
+        <span>{{name}}</span>
+        <button type="button" v-on:click="name = 'nihoa'"></button>
+    </div>
+
+
+    <div id="example">
+        <input v-model="a">
     </div>
 </body>
 <script>
@@ -44,13 +56,45 @@
     var v = new Vue({
         el:"#input",
         data:{
-            condition:{}
+            condition:{
+                name:2324
+            }
         },
         methods:{
             keyupsd:function(){
-                console.log(this.condition)
+                console.log(this.condition.age)
             },
         }
     })
+
+
+    var data = {
+        name:"lis"
+    }
+    //当时用这的时候data里面的数据会变成只读不会再是响应式
+    Object.freeze(data)
+        new Vue({
+            el:"#vue2",
+            data:data,
+        })
+
+
+
+    var data2 = { a: 1 }
+    var vm2 = new Vue({
+        el: '#example',
+        data: data2
+    })
+    vm2.$data === data2 // => true
+    vm2.$el === document.getElementById('example') // => true
+    // $watch 是一个实例方法
+    vm2.$watch('a', function (newValue, oldValue) {
+        // 这个回调将在 `vm.a` 改变后调用
+        console.log("newValue:"+newValue)
+        console.log("oldValue:"+oldValue)
+    })
+
+
+
 </script>
 </html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板语法</title>
+    <script src="static/vue.js"></script>
+</head>
+<body>
+
+<div id="vue1">
+   <!-- 当时用v-once 的时候这个值将不会再改变-->
+    <span v-once>{{message}}</span>
+    <input type="button" v-on:click="message = 'noe vue'">
+</div>
+
+<div id="vue2">
+        {{message}}
+        <span v-html="message"></span>
+</div>
+
+<div id="vue3">
+    <div v-bind:id="id">
+        {{id}}
+    </div>
+    <button v-bind:disabled="isButtonDisabled">Button</button>
+</div>
+
+<div id="vue4">
+    {{num +3232}}
+    {{ok?'yes':'no'}}
+    {{str.length}}
+</div>
+
+
+</body>
+<script>
+/*文本*/
+    var vue1 = new Vue({
+        el:"#vue1",
+        data:{
+            message:"hello Vue"
+        },
+    })
+
+/*原始 HTML
+* 双大括号会将数据解释为普通文本，而非 HTML 代码。为了输出真正的 HTML，你需要使用 v-html 指令：
+* */
+    var vue2 = new Vue({
+        el:"#vue2",
+        data:{
+            message:'<span style="color:red;">我是红色的</span>'
+        }
+    })
+
+    /*特性
+    * Mustache( {{}} ) 语法不能作用在 HTML 属性上，遇到这种情况应该使用 v-bind 指令：
+    * */
+/*在布尔特性的情况下，它们的存在即暗示为 true，v-bind 工作起来略有不同，在这个例子中：*/
+    var vue3 = new Vue({
+        el:"#vue3",
+        data:{
+            id:'12345',
+            isButtonDisabled:null
+        }
+    })
+
+
+    /*
+    使用 JavaScript 表达式
+    */
+    var vue4 = new Vue({
+        el:"#vue4",
+        data:{
+            num:123,
+            ok:90,
+            str:"nishi  shui sa"
+        }
+    })
+
+    /*缩写*/
+    /*v-bind 缩写
+    <!-- 完整语法 -->
+    <a v-bind:href="url">...</a>
+    <!-- 缩写 -->
+    <a :href="url">...</a>
+
+    v-on 缩写
+    <!-- 完整语法 -->
+    <a v-on:click="doSomething">...</a>
+    <!-- 缩写 -->
+    <a @click="doSomething">...</a>*/
+
+
+
+
+
+</script>
+</html>
